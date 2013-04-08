@@ -29,7 +29,8 @@ void testApp::update()
     MoverSystem * blacks = &((*pops)["blacks"]);
     reds->arriveClosestFood(blacks);
     Mover * the_red = &((*reds->movers())[0]);
-    printf("red age: %5.2f\t", the_red->age());
+    printf("red rotation: %5.2f\t", the_red->rotation_angle());
+    printf("age: %5.2f\t", the_red->age());
     printf("lifespan: %5.2f\t", the_red->lifespan());
     printf("mass: %5.2f\t", the_red->mass());
     printf("isAlive: %i\n", the_red->isAlive());

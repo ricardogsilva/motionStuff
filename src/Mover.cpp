@@ -296,6 +296,7 @@ void Mover::update()
 
 void Mover::updateMovement()
 {
+    d_rotation_angle = atan2(d_velocity.y, d_velocity.x);
     d_velocity += d_acceleration;
     d_location += d_velocity;
     d_acceleration *= 0;
@@ -306,14 +307,16 @@ void Mover::draw()
     ofEnableAlphaBlending();
     ofSetColor(d_color);
     ofFill();
-    ofEllipse(d_location.x, d_location.y, d_width, d_height);
+    ofPushMatrix();
+    ofTranslate(ofPoint(d_location.x, d_location.y));
+    ofRotate(ofRadToDeg(d_rotation_angle));
+    ofEllipse(0, 0, d_width, d_height);
     ofSetColor(d_color.r, d_color.g, d_color.b, 255);
     ofNoFill();
-    ofEllipse(d_location.x, d_location.y, d_mass, d_mass);
-    //ofSetLineWidth(1);
-
-    //ofCircle(d_location.x, d_location.y, d_mass);
-    //ofDisableAlphaBlending();
+    ofEllipse(0, 0, d_mass, d_mass);
+    ofLine(0, 0, d_width/2, 0);
+    ofPopMatrix();
+    ofDisableAlphaBlending();
 }
 
 float const &Mover::mass() const
@@ -344,6 +347,11 @@ float const &Mover::age() const
 float const &Mover::lifespan() const
 {
     return d_lifespan;
+}
+
+float const &Mover::rotation_angle() const
+{
+    return d_rotation_angle;
 }
 
 ofVec2f const &Mover::velocity() const

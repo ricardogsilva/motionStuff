@@ -19,6 +19,7 @@ class Mover {
     float d_age;
     float d_energy_reserve;
     int d_id;
+    float d_rotation_angle;
     float d_mass;
     float d_width;
     float d_height;
@@ -67,6 +68,7 @@ class Mover {
         float const &age() const;
         float const &lifespan() const;
         float const &friction_coeff() const;
+        float const &rotation_angle() const;
         ofVec2f const &location() const;
         ofVec2f const &velocity() const;
         ofVec2f const &acceleration() const;
