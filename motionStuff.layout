@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="config.make" open="0" top="0" tabpos="4">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="src/Mover.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="7469" topLine="49" />
+	</File>
+	<File name="src/Mover.h" open="1" top="0" tabpos="3">
+		<Cursor position="1079" topLine="30" />
+	</File>
+	<File name="src/MoverSystem.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="505" topLine="0" />
+	</File>
+	<File name="src/MoverSystem.h" open="0" top="0" tabpos="3">
+		<Cursor position="257" topLine="1" />
+	</File>
+	<File name="src/Vehicle.h" open="0" top="0" tabpos="0">
+		<Cursor position="55" topLine="0" />
+	</File>
+	<File name="src/World.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="580" topLine="11" />
+	</File>
+	<File name="src/World.h" open="0" top="0" tabpos="0">
+		<Cursor position="442" topLine="0" />
+	</File>
+	<File name="src/main.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="src/testApp.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="266" topLine="9" />
+	</File>
+	<File name="src/testApp.h" open="0" top="0" tabpos="1">
+		<Cursor position="70" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>
