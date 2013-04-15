@@ -49,14 +49,14 @@ void Mover::init(int id, float x, float y, float m, ofColor color, float lifespa
 //    return steer;
 //}
 
-ofVec2f Mover::drag(float frictionCoeff)
+void Mover::drag(float frictionCoeff)
 {
     float speed = d_velocity.length();
     float dragMagnitude = frictionCoeff * speed * speed;
     ofVec2f drag = ofVec2f(d_velocity.x, d_velocity.y);
     drag.normalize();
     drag *= -1 * dragMagnitude;
-    return drag;
+    applyForce(drag);
 }
 
 ofVec2f Mover::arrive(ofVec2f target)
@@ -101,14 +101,14 @@ void Mover::arriveFood(Mover * food)
     applyForce(steer);
 }
 
-ofVec2f Mover::seek(ofVec2f target)
+void Mover::seek(ofVec2f target)
 {
     ofVec2f desired = target - d_location;
     desired.normalize();
     desired *= d_max_speed;
     ofVec2f steer = desired - d_velocity;
     steer.limit(d_max_steer_force);
-    return steer;
+    applyForce(steer);
 }
 
 //ofVec2f Mover::seekClosest(vector<Mover> * targets)
@@ -163,14 +163,14 @@ ofVec2f Mover::escape(ofVec2f target)
 {
     float dist = ofDist(d_location.x, d_location.y, target.x, target.y);
     ofVec2f steer = ofVec2f(0, 0);
-    if(dist < 50 + d_width / 2)
-    {
+    //if(dist < 50 + d_width / 2)
+    //{
         ofVec2f desired = (target - d_location) * -1;
         desired.normalize();
         desired *= d_max_speed;
         steer = desired - d_velocity;
         steer.limit(d_max_steer_force);
-    }
+    //}
     return steer;
 }
 
@@ -208,8 +208,20 @@ void Mover::consumeEnergy()
 
 void Mover::wander()
 {
-    ofVec2f force = ofVec2f(ofRandomf(), ofRandomf());
-    applyForce(force);
+    float speed = d_velocity.length();
+    ofVec2f futureLocation = d_velocity;
+    futureLocation.normalize();
+    futureLocation *= 10;
+    futureLocation += d_location;
+    float randomRadius = d_width*2;
+    float theAngle = ofRandom(0, 360);
+    float randomAngle = ofDegToRad(theAngle);
+    float futureRandomX = futureLocation.x + randomRadius * cos(randomAngle);
+    float futureRandomY = futureLocation.y + randomRadius * sin(randomAngle);
+    ofVec2f futureRandomPosition = ofVec2f(futureRandomX, futureRandomY);
+    seek(futureRandomPosition);
+    //ofVec2f desiredVelocity = futureRandomPosition.normalize() * speed;
+    //d_velocity = desiredVelocity;
 }
 
 bool Mover::isAlive()
@@ -230,6 +242,11 @@ void Mover::setMass(float newMass)
     d_mass = newMass;
     d_width = d_base_width + d_mass;
     d_height = d_base_height + d_mass;
+}
+
+void Mover::setColor(ofColor newColor)
+{
+    d_color = newColor;
 }
 
 void Mover::checkEdges()
@@ -286,9 +303,15 @@ void Mover::update()
     setMass(d_mass - d_mass_decay_ratio);
     if(isAlive())
     {
-        //printf("energy before: %5.2f", d_energy_reserve);
+        printf("energy before: %5.2f", d_energy_reserve);
+        if(d_energy_reserve >= 10)
+        {
+            wander();
+        } else {
+            seek(ofVec2f(0, 0));
+        }
         consumeEnergy();
-        //printf("\tenergy after: %5.2f\n", d_energy_reserve);
+        printf("\tenergy after: %5.2f\n", d_energy_reserve);
         updateMovement();
     }
 
@@ -352,6 +375,11 @@ float const &Mover::lifespan() const
 float const &Mover::rotation_angle() const
 {
     return d_rotation_angle;
+}
+
+ofColor const &Mover::color() const
+{
+    return d_color;
 }
 
 ofVec2f const &Mover::velocity() const

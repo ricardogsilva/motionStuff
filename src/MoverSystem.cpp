@@ -28,8 +28,7 @@ void MoverSystem::applyDragForce(float frictionCoeff)
     ofVec2f dragForce;
     for(int i=0; i < d_movers.size(); i++)
     {
-        dragForce = d_movers[i].drag(frictionCoeff);
-        d_movers[i].applyForce(dragForce);
+        d_movers[i].drag(frictionCoeff);
     }
 }
 
@@ -38,8 +37,7 @@ void MoverSystem::seek(ofVec2f target)
     ofVec2f steerForce;
     for(int i=0; i < d_movers.size(); i++)
     {
-        steerForce = d_movers[i].seek(target);
-        d_movers[i].applyForce(steerForce);
+        d_movers[i].seek(target);
     }
 }
 

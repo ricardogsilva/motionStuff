@@ -2,30 +2,21 @@
 
 #include <vector>
 #include "ofMain.h"
-#include "World.h"
+//#include "World.h"
+#include "Mover.h"
+#include "Dog.h"
+#include "Cat.h"
+#include "SpringParticle.h"
 using namespace std;
 
 class testApp : public ofBaseApp{
 
     float frictionCoeff;
-    World d_world;
-    //Mover m;
-    //Mover s;
-    //MoverSystem reds;
-    //MoverSystem blacks;
-
-	//vector<Mover> d_movers;
-	//vector<Mover> d_attractors;
-    //int d_i;
-	//bool enableDownForce;
-	//bool enableUpForce;
-	//bool enableLeftForce;
-	//bool enableRightForce;
-	//bool enableSeek;
-	//bool enableEscape;
-
-	//float const friction_coefficient const
-	//ofVec2f friction;
+    //World d_world;
+    Mover m;
+    Dog d;
+    Cat c;
+    SpringParticle s;
 
 	public:
 		void setup();

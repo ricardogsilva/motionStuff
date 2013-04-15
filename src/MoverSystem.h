@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "ofMain.h"
-#include "src/Mover.h"
+#include "Mover.h"
 using namespace std;
 
 class MoverSystem {

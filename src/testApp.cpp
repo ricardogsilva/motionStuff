@@ -7,40 +7,64 @@ void testApp::setup()
     ofBackground(255, 255, 255);
     frictionCoeff = 0.001;
 
-    MoverSystem reds;
-    MoverSystem blacks;
-    reds.init(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()), 2, ofColor(255, 0, 0, 100), 0);
-    blacks.init(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()), 10, ofColor(0, 0, 0, 100), 0);
-    d_world.addPopulation(reds, "reds");
-    d_world.addPopulation(blacks, "blacks");
+    m.init(1, ofGetWidth()/2, ofGetHeight()/2, 10, ofColor(0, 240, 0, 150), 40, 20);
+    s.init(m.location().x, m.location().y, 0);
+    d.init(2, ofRandomWidth(), ofRandomHeight(), 10, 20, 20);
+    c.init(3, ofRandomWidth(), ofRandomHeight(), 5, 20, 20);
+
+    //MoverSystem reds;
+    //MoverSystem blacks;
+    //reds.init(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()), 2, ofColor(255, 0, 0, 100), 0);
+    //blacks.init(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()), 10, ofColor(0, 0, 0, 100), 0);
+    //d_world.addPopulation(reds, "reds");
+    //d_world.addPopulation(blacks, "blacks");
 }
 
 void testApp::update()
 {
+    //s.connect(&m);
+    if(m.isAlive())
+    {
+        m.wander();
+        m.drag(frictionCoeff);
+        m.reappear();
+        m.update();
+    }
+    c.wander();
+    c.drag(frictionCoeff);
+    c.reappear();
+    c.update();
+    d.seek(c.location());
+    d.drag(frictionCoeff);
+    d.reappear();
+    d.update();
+
+    //ofVec2f steerForce = m.escape(ofVec2f(mouseX, mouseY));
+    //m.applyForce(steerForce);
+
     //ofVec2f force = ofVec2f(0.02, 0);
     //d_world.applyForce(force);
-//    reds.arriveClosestFood(&blacks);
-//    reds.applyDragForce(frictionCoeff);
-//    blacks.applyDragForce(frictionCoeff);
-//    reds.update();
-//    blacks.update();
-    unordered_map<string, MoverSystem> * pops = d_world.populations();
-    MoverSystem * reds = &((*pops)["reds"]);
-    MoverSystem * blacks = &((*pops)["blacks"]);
-    reds->arriveClosestFood(blacks);
-    Mover * the_red = &((*reds->movers())[0]);
-    printf("red rotation: %5.2f\t", the_red->rotation_angle());
-    printf("age: %5.2f\t", the_red->age());
-    printf("lifespan: %5.2f\t", the_red->lifespan());
-    printf("mass: %5.2f\t", the_red->mass());
-    printf("isAlive: %i\n", the_red->isAlive());
+    //unordered_map<string, MoverSystem> * pops = d_world.populations();
+    //MoverSystem * reds = &((*pops)["reds"]);
+    //MoverSystem * blacks = &((*pops)["blacks"]);
+    //reds->arriveClosestFood(blacks);
+    //Mover * the_red = &((*reds->movers())[0]);
+    //printf("red rotation: %5.2f\t", the_red->rotation_angle());
+    //printf("age: %5.2f\t", the_red->age());
+    //printf("lifespan: %5.2f\t", the_red->lifespan());
+    //printf("mass: %5.2f\t", the_red->mass());
+    //printf("isAlive: %i\n", the_red->isAlive());
     //printf("reds: %i\n", reds->movers()->size());
-    d_world.update(frictionCoeff);
+    //d_world.update(frictionCoeff);
 }
 
 void testApp::draw()
 {
-    d_world.draw();
+    //d_world.draw();
+    m.draw();
+    s.draw();
+    d.draw();
+    c.draw();
 }
 
 void testApp::keyPressed(int key)
@@ -193,12 +217,8 @@ void testApp::mouseDragged(int x, int y, int button){
 }
 
 void testApp::mousePressed(int x, int y, int button){
-    //Mover m = Mover();
-    ////ofColor color(ofRandom(256), ofRandom(256), ofRandom(256), 10);
-    //ofColor color(250, 0, 0, 127);
-    //d_i++;
-    //m.init(d_i, ofRandomWidth(), ofRandomHeight(), 10 + ofRandom(50), color);
-    //d_movers.push_back(m);
+    ofVec2f force = ofVec2f(-0.5, 1);
+    m.applyForce(force);
 }
 
 void testApp::mouseReleased(int x, int y, int button){

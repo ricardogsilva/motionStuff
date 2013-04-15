@@ -126,6 +126,10 @@
 		<Unit filename="config.make">
 			<Option virtualFolder="build config" />
 		</Unit>
+		<Unit filename="src/Cat.cpp" />
+		<Unit filename="src/Cat.h" />
+		<Unit filename="src/Dog.cpp" />
+		<Unit filename="src/Dog.h" />
 		<Unit filename="src/Mover.cpp">
 			<Option virtualFolder="src/" />
 		</Unit>
@@ -138,6 +142,8 @@
 		<Unit filename="src/MoverSystem.h">
 			<Option virtualFolder="src/" />
 		</Unit>
+		<Unit filename="src/SpringParticle.cpp" />
+		<Unit filename="src/SpringParticle.h" />
 		<Unit filename="src/Vehicle.cpp" />
 		<Unit filename="src/Vehicle.h" />
 		<Unit filename="src/World.cpp" />

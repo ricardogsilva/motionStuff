@@ -12,8 +12,10 @@ class Mover {
     float d_mass_to_energy_ratio = 2.0 / 5.0;
     float d_energy_to_mass_ratio = 0.5;
     float d_eat_ratio = 4;
-    float d_mass_decay_ratio = 0.1;
-    float d_energy_consumption = 0.1;
+    //float d_mass_decay_ratio = 0.1;
+    float d_mass_decay_ratio = 0;
+    //float d_energy_consumption = 0.1;
+    float d_energy_consumption = 0;
     float d_birth_date;
     float d_lifespan;
     float d_age;
@@ -44,10 +46,10 @@ class Mover {
         void wander();
 
         void consumeEnergy();
+        void seek(ofVec2f target);
 
-        ofVec2f drag(float frictionCoeff);
+        void drag(float frictionCoeff);
         ofVec2f arrive(ofVec2f target);
-        ofVec2f seek(ofVec2f target);
         ofVec2f escape(ofVec2f target);
         //ofVec2f seekClosest(vector<Mover> * targets);
         //ofVec2f arriveClosest(vector<Mover> * targets);
@@ -60,6 +62,7 @@ class Mover {
         void draw();
 
         void setMass(float newMass);
+        void setColor(ofColor newColor);
 
         int const &id() const;
         float const &mass() const;
@@ -69,6 +72,7 @@ class Mover {
         float const &lifespan() const;
         float const &friction_coeff() const;
         float const &rotation_angle() const;
+        ofColor const &color() const;
         ofVec2f const &location() const;
         ofVec2f const &velocity() const;
         ofVec2f const &acceleration() const;
