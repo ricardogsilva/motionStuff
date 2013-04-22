@@ -1,44 +1,61 @@
 #include "World.h"
 
-void World::init()
-{}
-
-void World::addPopulation(MoverSystem population, string name)
+void World::init(float frictionCoeff)
 {
-    d_populations[name] = population;
+    d_frictionCoeff = frictionCoeff;
 }
 
-void World::removePopulation(string name)
+void World::addParticle(Mover* particle)
 {
-    d_populations.erase(name);
+    d_particles.push_back(particle);
+}
+
+void World::addTag(Tag* tag)
+{
+    d_tags.push_back(tag);
+}
+
+Tag* World::getTag(string tagName)
+{
+    Tag* result = NULL;
+    for(auto it=d_tags.begin(); it != d_tags.end(); it++)
+    {
+        string thisName = (*it)->name();
+        if(thisName.compare(tagName) == 0)
+        {
+            result = (*it);
+        }
+    }
+    return result;
 }
 
 void World::applyForce(ofVec2f force)
-{
-    for(auto i=d_populations.begin(); i != d_populations.end(); i++)
-    {
-        i->second.applyForce(force);
-    }
-}
+{}
 
-void World::update(float frictionCoeff)
+void World::update()
 {
-    for(auto i=d_populations.begin(); i != d_populations.end(); i++)
-    {
-        i->second.applyDragForce(frictionCoeff);
-        i->second.update();
+    for(auto it=d_particles.begin(); it != d_particles.end(); it++){
+        (*it)->update();
     }
 }
 
 void World::draw()
 {
-    for(auto i=d_populations.begin(); i != d_populations.end(); i++)
-    {
-        i->second.draw();
+    for(auto it=d_particles.begin(); it != d_particles.end(); it++){
+        (*it)->draw();
     }
 }
 
-unordered_map<string, MoverSystem> * World::populations()
+void World::printTags()
 {
-    return &d_populations;
+    for(auto it=d_tags.begin(); it!=d_tags.end(); it++){
+        cout << "tag: " << (*it)->name() << "\n";
+        (*it)->printParticles();
+    }
+    cout << "-----\n";
+}
+
+vector<Tag*> World::tags()
+{
+    return d_tags;
 }

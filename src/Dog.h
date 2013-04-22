@@ -8,7 +8,7 @@ class Dog : public Mover
 {
     public:
 
-        void init(int id, float x, float y, float m, float lifespan, float energy_reserve);
+        void init(float x, float y, float m, float lifespan, float energy_reserve);
         void draw();
 };
 

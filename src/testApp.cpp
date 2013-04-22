@@ -1,4 +1,6 @@
 #include "testApp.h"
+#include "Mover.h"
+#include "Tag.h"
 
 void testApp::setup()
 {
@@ -7,202 +9,42 @@ void testApp::setup()
     ofBackground(255, 255, 255);
     frictionCoeff = 0.001;
 
-    m.init(1, ofGetWidth()/2, ofGetHeight()/2, 10, ofColor(0, 240, 0, 150), 40, 20);
-    s.init(m.location().x, m.location().y, 0);
-    d.init(2, ofRandomWidth(), ofRandomHeight(), 10, 20, 20);
-    c.init(3, ofRandomWidth(), ofRandomHeight(), 5, 20, 20);
-
-    //MoverSystem reds;
-    //MoverSystem blacks;
-    //reds.init(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()), 2, ofColor(255, 0, 0, 100), 0);
-    //blacks.init(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()), 10, ofColor(0, 0, 0, 100), 0);
-    //d_world.addPopulation(reds, "reds");
-    //d_world.addPopulation(blacks, "blacks");
+    d_world.init(frictionCoeff);
+    Mover* p = new Mover();
+    p->init(ofRandomWidth(), ofRandomHeight(), 5, ofColor(0, 255, 0), 30, 20);
+    d_world.addParticle(p);
+    Tag* t = new Tag(string("bailarinos"));
+    d_world.addTag(t);
+    t->addParticle(p);
+    Tag* t2 = new Tag(string("outra"));
+    d_world.addTag(t2);
+    Mover* p2 = new Mover();
+    p2->init(ofRandomWidth(), ofRandomHeight(), 5, ofColor(0, 255, 0), 30, 20);
+    d_world.addParticle(p2);
+    p2->addTag(t);
 }
 
 void testApp::update()
 {
-    //s.connect(&m);
-    if(m.isAlive())
-    {
-        m.wander();
-        m.drag(frictionCoeff);
-        m.reappear();
-        m.update();
-    }
-    c.wander();
-    c.drag(frictionCoeff);
-    c.reappear();
-    c.update();
-    d.seek(c.location());
-    d.drag(frictionCoeff);
-    d.reappear();
-    d.update();
-
-    //ofVec2f steerForce = m.escape(ofVec2f(mouseX, mouseY));
-    //m.applyForce(steerForce);
-
-    //ofVec2f force = ofVec2f(0.02, 0);
-    //d_world.applyForce(force);
-    //unordered_map<string, MoverSystem> * pops = d_world.populations();
-    //MoverSystem * reds = &((*pops)["reds"]);
-    //MoverSystem * blacks = &((*pops)["blacks"]);
-    //reds->arriveClosestFood(blacks);
-    //Mover * the_red = &((*reds->movers())[0]);
-    //printf("red rotation: %5.2f\t", the_red->rotation_angle());
-    //printf("age: %5.2f\t", the_red->age());
-    //printf("lifespan: %5.2f\t", the_red->lifespan());
-    //printf("mass: %5.2f\t", the_red->mass());
-    //printf("isAlive: %i\n", the_red->isAlive());
-    //printf("reds: %i\n", reds->movers()->size());
-    //d_world.update(frictionCoeff);
+    d_world.update();
+    d_world.printTags();
 }
 
 void testApp::draw()
 {
-    //d_world.draw();
-    m.draw();
-    s.draw();
-    d.draw();
-    c.draw();
+    d_world.draw();
 }
 
 void testApp::keyPressed(int key)
-{}
-
-//void testApp::setup(){
-//    ofSetFrameRate(30);
-//    ofBackground(255, 255, 255);
-//    frictionCoeff = 0.001;
-//    enableDownForce = false;
-//    enableUpForce = false;
-//    enableLeftForce = false;
-//    enableRightForce = false;
-//    enableSeek = false;
-//    enableEscape = false;
-//    int numMovers = 200;
-//    for(int i = 0; i < numMovers; i++)
-//    {
-//        Mover m = Mover();
-//        //ofColor color(ofRandom(256), ofRandom(256), ofRandom(256), 10);
-//        ofColor color(250, 0, 0, 127);
-//        m.init(i, ofRandomWidth(), ofRandomHeight(), 10 + ofRandom(50), color);
-//        d_i++;
-//        d_movers.push_back(m);
-//    }
-//    int numAttractors = 10;
-//    for(int i = 0; i < numAttractors; i++)
-//    {
-//        Mover m = Mover();
-//        //ofColor color(ofRandom(256), ofRandom(256), ofRandom(256), 10);
-//        ofColor color(0, 0, 0, 127);
-//        m.init(i, ofRandomWidth(), ofRandomHeight(), 10 + ofRandom(50), color);
-//        d_i++;
-//        d_attractors.push_back(m);
-//    }
-//}
-//
-//void testApp::update(){
-//    ofVec2f downForce = ofVec2f(0, 0.02);
-//    ofVec2f upForce = ofVec2f(0, -0.02);
-//    ofVec2f leftForce = ofVec2f(-0.02, 0);
-//    ofVec2f rightForce = ofVec2f(0.02, 0);
-//    ofVec2f mousePos = ofVec2f(mouseX, mouseY);
-//    for(int i = 0; i < d_attractors.size(); i++)
-//    {
-//        d_attractors[i].applyForce(ofVec2f(0.02, 0));
-//        ofVec2f escapeForce = d_attractors[i].escapeClosest(d_movers);
-//        d_attractors[i].applyForce(escapeForce);
-//        ofVec2f separateAttractorForce = d_attractors[i].separate(d_attractors);
-//        d_attractors[i].applyForce(separateAttractorForce);
-//        ofVec2f separateMoverForce = d_attractors[i].separate(d_movers);
-//        d_attractors[i].applyForce(separateMoverForce);
-//        ofVec2f drag = d_attractors[i].drag(frictionCoeff);
-//        d_attractors[i].applyForce(drag);
-//        d_attractors[i].update();
-//        //d_attractors[i].checkEdges();
-//        d_attractors[i].reappear();
-//
-//    }
-//    for(int i = 0; i < d_movers.size(); i++)
-//    {
-//        if(enableDownForce)
-//        {
-//            d_movers[i].applyForce(downForce);
-//        }
-//        if(enableUpForce)
-//        {
-//            d_movers[i].applyForce(upForce);
-//        }
-//        if(enableLeftForce)
-//        {
-//            d_movers[i].applyForce(leftForce);
-//        }
-//        if(enableRightForce)
-//        {
-//            d_movers[i].applyForce(rightForce);
-//        }
-//        if(enableSeek)
-//        {
-//            //ofVec2f steerForce = d_movers[i].seek(mousePos);
-//            ofVec2f steerForce = d_movers[i].seekClosest(d_attractors);
-//            d_movers[i].applyForce(steerForce);
-//        }
-//        if(enableEscape)
-//        {
-//            ofVec2f steerForce = d_movers[i].escape(mousePos);
-//            d_movers[i].applyForce(steerForce);
-//        }
-//        ofVec2f separateForce = d_movers[i].separate(d_movers);
-//        d_movers[i].applyForce(separateForce);
-//        ofVec2f separateAttractorForce = d_movers[i].separate(d_attractors);
-//        d_movers[i].applyForce(separateAttractorForce);
-//        ofVec2f drag = d_movers[i].drag(frictionCoeff);
-//        d_movers[i].applyForce(drag);
-//        d_movers[i].update();
-//        //d_movers[i].checkEdges();
-//        d_movers[i].reappear();
-//    }
-//}
-//
-//void testApp::draw(){
-//    for(int i = 0; i < d_movers.size(); i++)
-//    {
-//        d_movers[i].draw();
-//    }
-//    for(int i = 0; i < d_attractors.size(); i++)
-//    {
-//        d_attractors[i].draw();
-//    }
-//}
-//
-//void testApp::keyPressed(int key){
-//    if(key==119) // w key
-//    {
-//        enableUpForce = !enableUpForce;
-//    } else if(key==115) // s key
-//    {
-//        enableDownForce = !enableDownForce;
-//    } else if(key==97) // a key
-//    {
-//        enableLeftForce = !enableLeftForce;
-//    } else if(key==100) // d key
-//    {
-//        enableRightForce = !enableRightForce;
-//    } else if(key==102) // f key
-//    {
-//        enableSeek = true;
-//        enableEscape = false;
-//    } else if(key==103) // g key
-//    {
-//        enableEscape = true;
-//        enableSeek = false;
-//    } else if(key==104) // h key
-//    {
-//        enableEscape = false;
-//        enableSeek = false;
-//    }
-//}
+{
+    if(key==111){ // key 'o'
+        Mover* p = new Mover();
+        p->init(ofRandomWidth(), ofRandomHeight(), 5, ofColor(0, 200, 200), 30, 20);
+        d_world.addParticle(p);
+        Tag* t = d_world.getTag("outra");
+        t->addParticle(p);
+    }
+}
 
 void testApp::keyReleased(int key){
 
@@ -217,8 +59,6 @@ void testApp::mouseDragged(int x, int y, int button){
 }
 
 void testApp::mousePressed(int x, int y, int button){
-    ofVec2f force = ofVec2f(-0.5, 1);
-    m.applyForce(force);
 }
 
 void testApp::mouseReleased(int x, int y, int button){

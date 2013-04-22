@@ -1,8 +1,11 @@
 #include "Mover.h"
 
-void Mover::init(int id, float x, float y, float m, ofColor color, float lifespan, float energy_reserve)
+int Mover::d_id_counter = 0;
+
+void Mover::init(float x, float y, float m, ofColor color, float lifespan, float energy_reserve)
 {
-    d_id = id;
+    d_id = d_id_counter;
+    d_id_counter++;
     setMass(m);
     d_max_speed = 10;
     //d_max_speed = 10 + ofRandom(20);
@@ -16,6 +19,17 @@ void Mover::init(int id, float x, float y, float m, ofColor color, float lifespa
     d_age = 0.0;
     d_lifespan = lifespan;
     d_energy_reserve = energy_reserve;
+}
+
+void Mover::addTag(Tag* t)
+{
+    d_tags.push_back(t);
+    t->addParticleNoReciprocal(this);
+}
+
+void Mover::addTagNoReciprocal(Tag* t)
+{
+    d_tags.push_back(t);
 }
 
 //ofVec2f Mover::separate(vector<Mover> movers)
@@ -303,7 +317,7 @@ void Mover::update()
     setMass(d_mass - d_mass_decay_ratio);
     if(isAlive())
     {
-        printf("energy before: %5.2f", d_energy_reserve);
+        //printf("energy before: %5.2f", d_energy_reserve);
         if(d_energy_reserve >= 10)
         {
             wander();
@@ -311,7 +325,7 @@ void Mover::update()
             seek(ofVec2f(0, 0));
         }
         consumeEnergy();
-        printf("\tenergy after: %5.2f\n", d_energy_reserve);
+        //printf("\tenergy after: %5.2f\n", d_energy_reserve);
         updateMovement();
     }
 

@@ -3,10 +3,14 @@
 
 #include <cmath>
 #include "ofMain.h"
+#include "Tag.h"
 using namespace std;
+
+class Tag;
 
 class Mover {
 
+    static int d_id_counter;
     int d_base_width = 30;
     int d_base_height = 30;
     float d_mass_to_energy_ratio = 2.0 / 5.0;
@@ -28,6 +32,7 @@ class Mover {
     float d_max_speed;
     float d_max_steer_force;
     float d_friction_coeff;
+    vector <Tag*> d_tags;
     ofColor d_color;
     ofVec2f d_location;
     ofVec2f d_velocity;
@@ -38,8 +43,10 @@ class Mover {
 
     public:
 
-        void init(int id, float x, float y, float m, ofColor color, float lifespan, float energy_reserve);
+        void init(float x, float y, float m, ofColor color, float lifespan, float energy_reserve);
         void applyForce(ofVec2f force);
+        void addTag(Tag* t);
+        void addTagNoReciprocal(Tag* t);
         void arriveFood(Mover * food);
         void arriveClosestFood(vector<Mover> * foods);
         void eat(Mover * food);

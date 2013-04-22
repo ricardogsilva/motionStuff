@@ -1,8 +1,8 @@
 #include "Cat.h"
 
-void Cat::init(int id, float x, float y, float m, float lifespan, float energy_reserve)
+void Cat::init(float x, float y, float m, float lifespan, float energy_reserve)
 {
-    Mover::init(id, x, y, m, ofColor(0, 0, 0), lifespan, energy_reserve);
+    Mover::init(x, y, m, ofColor(0, 0, 0), lifespan, energy_reserve);
 }
 
 void Cat::draw()

@@ -1,22 +1,15 @@
 #pragma once
 
-#include <vector>
+#include <string>
 #include "ofMain.h"
-//#include "World.h"
-#include "Mover.h"
-#include "Dog.h"
-#include "Cat.h"
-#include "SpringParticle.h"
+#include "World.h"
+#include "Tag.h"
 using namespace std;
 
 class testApp : public ofBaseApp{
 
     float frictionCoeff;
-    //World d_world;
-    Mover m;
-    Dog d;
-    Cat c;
-    SpringParticle s;
+    World d_world;
 
 	public:
 		void setup();

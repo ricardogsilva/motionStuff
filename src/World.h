@@ -1,24 +1,30 @@
 #ifndef OF_WORLD
 #define OF_WORLD
 
-#include <unordered_map>
+#include <vector>
+#include <iostream>
 #include "ofMain.h"
-#include "MoverSystem.h"
+#include "Mover.h"
+#include "Tag.h"
 using namespace std;
 
 class World {
 
-    unordered_map<string, MoverSystem> d_populations;
+    float d_frictionCoeff;
+    vector <Mover*> d_particles;
+    vector <Tag*> d_tags;
 
     public:
 
-        void init();
-        void addPopulation(MoverSystem population, string name);
-        void removePopulation(string name);
+        void init(float frictionCoeff);
+        void addParticle(Mover* particle);
+        void addTag(Tag* tag);
         void applyForce(ofVec2f force);
-        void update(float frictionCoeff);
+        void update();
         void draw();
+        void printTags();
+        Tag* getTag(string tagName);
 
-        unordered_map<string, MoverSystem> * populations();
+        vector <Tag*> tags();
 };
 #endif
