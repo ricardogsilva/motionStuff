@@ -73,7 +73,7 @@ void Mover::drag(float frictionCoeff)
     applyForce(drag);
 }
 
-ofVec2f Mover::arrive(ofVec2f target)
+void Mover::arrive(ofVec2f target)
 {
     ofVec2f desired = target - d_location;
     float dist = desired.length();
@@ -89,7 +89,7 @@ ofVec2f Mover::arrive(ofVec2f target)
     }
     ofVec2f steer = desired - d_velocity;
     steer.limit(d_max_steer_force);
-    return steer;
+    applyForce(steer);
 }
 
 /*

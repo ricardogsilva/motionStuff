@@ -56,7 +56,7 @@ class Mover {
         void seek(ofVec2f target);
 
         void drag(float frictionCoeff);
-        ofVec2f arrive(ofVec2f target);
+        void arrive(ofVec2f target);
         ofVec2f escape(ofVec2f target);
         //ofVec2f seekClosest(vector<Mover> * targets);
         //ofVec2f arriveClosest(vector<Mover> * targets);

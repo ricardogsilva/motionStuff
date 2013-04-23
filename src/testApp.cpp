@@ -22,6 +22,8 @@ void testApp::setup()
     p2->init(ofRandomWidth(), ofRandomHeight(), 5, ofColor(0, 255, 0), 30, 20);
     d_world.addParticle(p2);
     p2->addTag(t);
+    Interaction* i0 = d_interaction_factory.createInteraction(string("attract"));
+    t->addInteraction(i0);
 }
 
 void testApp::update()

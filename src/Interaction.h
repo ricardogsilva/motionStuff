@@ -3,12 +3,16 @@
 
 #include "ofMain.h"
 #include "Mover.h"
+using namespace std;
 
 class Mover;
 
 class Interaction
 {
-    Interaction();
-    virtual void interact(Mover* actor, Mover* acted);
+
+    public:
+
+        Interaction();
+        virtual void interact(Mover* actor, Mover* acted);
 };
 #endif

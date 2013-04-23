@@ -1,3 +1,6 @@
+# vim undo files
+*.un~
+
 # Compiled Object files
 *.slo
 *.lo

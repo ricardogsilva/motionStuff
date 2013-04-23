@@ -4,12 +4,16 @@
 #include "ofMain.h"
 #include "World.h"
 #include "Tag.h"
+#include "Interaction.h"
+#include "InteractionFactory.h"
+
 using namespace std;
 
 class testApp : public ofBaseApp{
 
     float frictionCoeff;
     World d_world;
+    InteractionFactory d_interaction_factory;
 
 	public:
 		void setup();
