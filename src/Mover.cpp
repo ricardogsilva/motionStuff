@@ -331,6 +331,13 @@ void Mover::update()
 
 }
 
+void Mover::updateInteractions()
+{
+    for(auto it=d_tags.begin(); it!=d_tags.end(); it++)
+    {
+    }
+}
+
 void Mover::updateMovement()
 {
     d_rotation_angle = atan2(d_velocity.y, d_velocity.x);

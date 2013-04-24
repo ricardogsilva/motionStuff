@@ -16,17 +16,14 @@ class Tag
 {
     string d_name;
     vector <Mover*> d_particles;
-    unordered_map<Interaction*, vector<Tag*>> d_interactions;
+    unordered_map<Tag*, vector<Interaction*>> d_interactions;
 
     public:
 
         Tag(string name);
         void addParticle(Mover* particle);
         void addParticleNoReciprocal(Mover* particle);
-        void addInteraction(Interaction* i, Tag* t);
-        void update();
-        void actUpon(Tag* otherTag);
-        void interact(Mover* actor, Interaction* interaction);
+        void addInteraction(Tag* t, Interaction* i);
         void printParticles();
         string const &name() const;
 };

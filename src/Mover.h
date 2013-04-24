@@ -40,6 +40,7 @@ class Mover {
 
     Mover * findClosest(vector<Mover> * targets);
     void updateMovement();
+    void updateInteractions();
 
     public:
 

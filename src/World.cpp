@@ -34,9 +34,6 @@ void World::applyForce(ofVec2f force)
 
 void World::update()
 {
-    for(auto it_t=d_tags.begin(); it_t != d_tags.end(); it_t++){
-        (*it_t)->update();
-    }
     for(auto it_p=d_particles.begin(); it_p != d_particles.end(); it_p++){
         (*it_p)->update();
     }
