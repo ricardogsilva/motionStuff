@@ -10,20 +10,31 @@ void testApp::setup()
     frictionCoeff = 0.001;
 
     d_world.init(frictionCoeff);
+
     Mover* p = new Mover();
     p->init(ofRandomWidth(), ofRandomHeight(), 5, ofColor(0, 255, 0), 30, 20);
+    //Mover* p2 = new Mover();
+    //p2->init(ofRandomWidth(), ofRandomHeight(), 5, ofColor(0, 255, 0), 30, 20);
+
     d_world.addParticle(p);
-    Tag* t = new Tag(string("bailarinos"));
-    d_world.addTag(t);
-    t->addParticle(p);
-    Tag* t2 = new Tag(string("outra"));
-    d_world.addTag(t2);
-    Mover* p2 = new Mover();
-    p2->init(ofRandomWidth(), ofRandomHeight(), 5, ofColor(0, 255, 0), 30, 20);
-    d_world.addParticle(p2);
-    p2->addTag(t);
-    Interaction* i0 = d_interaction_factory.createInteraction(string("attract"));
-    t->addInteraction(i0);
+    //d_world.addParticle(p2);
+
+    Tag* bailarinos = new Tag(string("bailarinos"));
+    Tag* outra = new Tag(string("outra"));
+
+    d_world.addTag(bailarinos);
+    d_world.addTag(outra);
+
+    p->addTag(bailarinos);
+    //p2->addTag(bailarinos);
+
+    Interaction* attraction = d_interaction_factory.createInteraction(string("attract"));
+    attraction->init(string(""), string(""), string(""), false);
+    bailarinos->addInteraction(outra, attraction);
+
+    Interaction* colorInteraction = d_interaction_factory.createInteraction(string("color"));
+    colorInteraction->init(string(""), string(""), string(""), false);
+    bailarinos->addInteraction(outra, colorInteraction);
 }
 
 void testApp::update()

@@ -4,6 +4,7 @@
 #include <string>
 #include "Interaction.h"
 #include "AttractInteraction.h"
+#include "ColorInteraction.h"
 using namespace std;
 
 class InteractionFactory

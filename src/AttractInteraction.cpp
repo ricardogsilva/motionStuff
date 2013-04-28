@@ -3,7 +3,7 @@
 AttractInteraction::AttractInteraction()
 {}
 
-void AttractInteraction::interact(Mover* actor, Mover* acted)
+void AttractInteraction::doInteraction(Mover* actor, Mover* acted)
 {
     acted->arrive(actor->location());
 }

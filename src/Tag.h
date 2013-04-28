@@ -25,6 +25,8 @@ class Tag
         void addParticleNoReciprocal(Mover* particle);
         void addInteraction(Tag* t, Interaction* i);
         void printParticles();
+        vector<Mover*>* particles();
+        unordered_map<Tag*, vector<Interaction*>>* interactions();
         string const &name() const;
 };
 #endif

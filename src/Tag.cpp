@@ -30,6 +30,16 @@ void Tag::printParticles()
     cout << "---\n";
 }
 
+vector<Mover*>* Tag::particles()
+{
+    return &d_particles;
+}
+
+unordered_map<Tag*, vector<Interaction*>>* Tag::interactions()
+{
+    return &d_interactions;
+}
+
 string const &Tag::name() const
 {
     return d_name;

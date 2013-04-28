@@ -10,7 +10,7 @@ class AttractInteraction : public Interaction
     public:
 
         AttractInteraction();
-        virtual void interact(Mover* actor, Mover* acted);
+        virtual void doInteraction(Mover* actor, Mover* acted);
 };
 
 #endif

@@ -313,28 +313,47 @@ void Mover::update()
 {
     float elapsedSeconds = ofGetFrameNum() / ofGetFrameRate();
     d_age = elapsedSeconds - d_birth_date;
-    //printf("d_age: %f\td_lifespan: %f\n", d_age, d_lifespan);
     setMass(d_mass - d_mass_decay_ratio);
     if(isAlive())
     {
-        //printf("energy before: %5.2f", d_energy_reserve);
-        if(d_energy_reserve >= 10)
-        {
-            wander();
-        } else {
-            seek(ofVec2f(0, 0));
-        }
+        //if(d_energy_reserve >= 10)
+        //{
+        //    wander();
+        //} else {
+        //    seek(ofVec2f(0, 0));
+        //}
         consumeEnergy();
-        //printf("\tenergy after: %5.2f\n", d_energy_reserve);
+        updateInteractions();
         updateMovement();
+        reappear();
     }
 
 }
 
 void Mover::updateInteractions()
 {
-    for(auto it=d_tags.begin(); it!=d_tags.end(); it++)
+    cout << "Mover: " << d_id << "\n";
+    for(auto it_t=d_tags.begin(); it_t!=d_tags.end(); it_t++)
     {
+        Tag* t = (*it_t);
+        cout << "\ttag: " << t->name() << "\n";
+        unordered_map<Tag*, vector<Interaction*>>* otherInteractions = t->interactions();
+        for(auto it_oi=(*otherInteractions).begin(); it_oi!=(*otherInteractions).end(); it_oi++)
+        {
+            Tag* otherTag = it_oi->first;
+            cout << "\totherTag: " << otherTag->name() << "\n";
+            vector<Interaction*> interactions = it_oi->second;
+            for(auto it_i=interactions.begin(); it_i!=interactions.end(); it_i++)
+            {
+                Interaction* the_interaction = (*it_i);
+                vector<Mover*>* otherParticles = otherTag->particles();
+                for(auto it_p=(*otherParticles).begin(); it_p!=(*otherParticles).end(); it_p++)
+                {
+                    Mover* acted = (*it_p);
+                    the_interaction->interact(this, acted);
+                }
+            }
+        }
     }
 }
 

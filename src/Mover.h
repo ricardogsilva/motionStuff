@@ -2,15 +2,19 @@
 #define _OF_MOVER
 
 #include <cmath>
+#include <iostream>
 #include "ofMain.h"
 #include "Tag.h"
+#include "Interaction.h"
 using namespace std;
 
 class Tag;
+class Interaction;
 
 class Mover {
 
     static int d_id_counter;
+    int d_id;
     int d_base_width = 30;
     int d_base_height = 30;
     float d_mass_to_energy_ratio = 2.0 / 5.0;
@@ -24,7 +28,6 @@ class Mover {
     float d_lifespan;
     float d_age;
     float d_energy_reserve;
-    int d_id;
     float d_rotation_angle;
     float d_mass;
     float d_width;
