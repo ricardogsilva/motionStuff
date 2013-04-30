@@ -79,6 +79,8 @@ class Mover {
         float const &mass() const;
         float const &width() const;
         float const &height() const;
+        float const &maxSpeed() const;
+        float const &maxSteerForce() const;
         float const &age() const;
         float const &lifespan() const;
         float const &friction_coeff() const;

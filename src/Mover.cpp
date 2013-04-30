@@ -402,6 +402,16 @@ float const &Mover::height() const
     return d_height;
 }
 
+float const &Mover::maxSpeed() const
+{
+    return d_max_speed;
+}
+
+float const &Mover::maxSteerForce() const
+{
+    return d_max_steer_force;
+}
+
 float const &Mover::age() const
 {
     return d_age;
