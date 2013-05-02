@@ -47,7 +47,8 @@ class Mover {
 
     public:
 
-        void init(float x, float y, float m, ofColor color, float lifespan, float energy_reserve);
+        void init(float x, float y, float m, ofColor color, float lifespan, 
+                  float energy_reserve);
         void applyForce(ofVec2f force);
         void addTag(Tag* t);
         void addTagNoReciprocal(Tag* t);

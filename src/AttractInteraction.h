@@ -6,6 +6,7 @@ using namespace std;
 
 class AttractInteraction : public Interaction
 {
+    float d_G = 1;
 
     public:
 
